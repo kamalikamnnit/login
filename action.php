@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $con = mysqli_connect('localhost','root');
 
 if($con){
@@ -15,18 +16,23 @@ mysqli_select_db($con,'sessionpractical');
 $username = $_POST['username'];
 $password =$_POST['password'];
 
-$q = "select * from signin username = '$username' && password = '$password'";
+$q = " select * from signin where username = '$username' && password = '$password'";
 
 $result =mysqli_query($con,$q);
 $num = mysqli_num_rows($result);
 if($num == 1)
 {
-echo "duplicate data";
-}
+$_SESSION['username'] = $username;
+    
+    header('location:home.php');
+}  
 
 else{
-    $qy = "insert into signin(username,password)values('$username','$password')";
-    mysqli_query($con,$qy);
+   echo "Inalid username or password";
+   header('location:info.php');
+    
 }
+
+
 
 ?>
