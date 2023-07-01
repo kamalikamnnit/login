@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+header('location:new.php');
 $con = mysqli_connect('localhost','root');
 
 if($con){
@@ -22,14 +22,12 @@ $result =mysqli_query($con,$q);
 $num = mysqli_num_rows($result);
 if($num == 1)
 {
-$_SESSION['username'] = $username;
-    
-    header('location:home.php');
+echo "duplicate data";
 }  
 
 else{
-   echo "Inalid username or password";
-   header('location:info.php');
+ $qy = " insert into signin(username , password) values ('$username','$password')";
+    mysqli_query($con,$qy);
     
 }
 
